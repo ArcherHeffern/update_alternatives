@@ -11,7 +11,8 @@ Use cases:
 Examples: 
 
 1. Polymorphism of binaries
+![Polymorphism](./static/polymorphism.png)
 
 2. Adding executable to path
    My alternatives project lives in ~/Desktop/code/update-alternatives, which is not on my path. However, I can create a link group, that symlinks /usr/local/bin, to ~/Desktop/code/update-alternatives/main. Now I can execute alternatives from anywhere. 
-<img width="1440" alt="add update-alternatives" src="https://github.com/ArcherHeffern/update_alternatives/assets/105125483/81c9eac0-8047-4d98-88d2-93366cf3f26e">
+![Path](./static/path.png)
