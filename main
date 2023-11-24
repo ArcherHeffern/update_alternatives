@@ -1,0 +1,56 @@
+#!/opt/homebrew/bin/python3.11
+import pathlib
+import argparse
+import helptext
+import commands
+
+
+parser = argparse.ArgumentParser(
+    prog='Update-Alternatives',
+    description=helptext.description,
+    # epilog=helptext.general
+)
+
+parsers = parser.add_subparsers()
+
+install_parser = parsers.add_parser('new', help=helptext.new)
+install_parser.add_argument('link', type=pathlib.Path)
+install_parser.add_argument('name', type=str)
+install_parser.add_argument('path', type=pathlib.Path)
+install_parser.set_defaults(func=commands.install_command)
+
+add_parser = parsers.add_parser('add', help=helptext.add)
+add_parser.add_argument('name', type=str)
+add_parser.add_argument('path', type=pathlib.Path)
+add_parser.set_defaults(func=commands.add_command)
+
+set_parser = parsers.add_parser('set', help=helptext.set_)
+set_parser.add_argument('name', type=str)
+set_parser.add_argument('num', type=int)
+set_parser.set_defaults(func=commands.set_command)
+
+remove_parser = parsers.add_parser('remove', help=helptext.remove)
+remove_parser.add_argument('name', type=str)
+remove_parser.add_argument('num', type=int)
+remove_parser.set_defaults(func=commands.remove_command)
+
+remove_all_parser = parsers.add_parser('remove-all', help=helptext.remove_all)
+remove_all_parser.add_argument('name', type=str)
+remove_all_parser.set_defaults(func=commands.remove_all_command)
+
+display_parser = parsers.add_parser('display', help=helptext.display)
+display_parser.add_argument('name', type=str)
+display_parser.set_defaults(func=commands.display_command)
+
+display_all_parser = parsers.add_parser(
+    'display-all', help=helptext.display_all)
+display_all_parser.set_defaults(func=commands.display_all_command)
+
+
+args = parser.parse_args()
+
+if not getattr(args, 'func', None):
+    print(helptext.general)
+    exit()
+
+args.func(args)
